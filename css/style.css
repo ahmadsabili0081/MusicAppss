@@ -49,6 +49,7 @@ body .container .apps .proggres {
   margin: 20px 0px;
   border-radius: 5px;
   cursor: pointer;
+  background-color: #b7956669;
 }
 
 body .container .apps .proggres .proggres__music {

@@ -7,6 +7,7 @@ let title = document.querySelector('.title');
 let proggres = document.querySelector('.proggres__music');
 let gambar = document.querySelector('.gambar');
 let proggresContiner = document.querySelector('.proggres');
+let timeMusic = document.querySelector('.time');
 let musicPlay = ['Fabio Asher - Bertahan Terluka',
                  'chrisye - Aku cinta dia', 
                  'fiersa - nadir',
@@ -57,8 +58,6 @@ function nextBtn(){
   musicIndex++;
   if(musicIndex > musicPlay.length - 1){
     musicIndex = 0;
-    console.log(musicIndex);
-
   }
   loadMusic(musicPlay[musicIndex]);
   playSong()
@@ -68,16 +67,15 @@ function setproggress(e){
   let {duration, currentTime}  = e.srcElement;
   let simpanTime = (currentTime / duration) * 100;
   proggres.style.width = `${simpanTime}%`;
+  timeMusic.innerText = convert(audio.currentTime);
 }
 proggresContiner.addEventListener('click', updateProggress);
 function updateProggress(e){
   let widthProggres = this.clientWidth;
   let clickWidth = e.offsetX;
   let durationMusic = audio.duration;
-  console.log(durationMusic)
   audio.currentTime = (clickWidth / widthProggres) * durationMusic;
 }
-
 audio.addEventListener('ended',() => {
   nextBtn()
 })
@@ -92,3 +90,14 @@ function handleScreen(e){
   }
 }
 
+let convert = (time) =>{
+  let minutes = Math.floor(time / 60);
+  let seconds = Math.floor(time % 60);
+  if(minutes < 10){
+    minutes = '0' + String(minutes)
+  }
+  if(seconds < 10){
+    seconds = '0' + String(seconds)
+  }
+  return minutes + ':' + seconds;
+}
